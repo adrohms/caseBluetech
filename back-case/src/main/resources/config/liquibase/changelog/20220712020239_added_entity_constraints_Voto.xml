@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity Voto.
+    -->
+    <changeSet id="20220712020239-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="first_name_id"
+                                 baseTableName="voto"
+                                 constraintName="fk_voto__first_name_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="nome_id"
+                                 baseTableName="voto"
+                                 constraintName="fk_voto__nome_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="empreendimento"/>
+    </changeSet>
+</databaseChangeLog>

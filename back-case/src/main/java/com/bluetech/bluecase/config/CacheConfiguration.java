@@ -48,6 +48,8 @@ public class CacheConfiguration {
             createCache(cm, com.bluetech.bluecase.domain.User.class.getName());
             createCache(cm, com.bluetech.bluecase.domain.Authority.class.getName());
             createCache(cm, com.bluetech.bluecase.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.bluetech.bluecase.domain.Empreendimento.class.getName());
+            createCache(cm, com.bluetech.bluecase.domain.Voto.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
