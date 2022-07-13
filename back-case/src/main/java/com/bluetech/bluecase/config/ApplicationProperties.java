@@ -3,7 +3,7 @@ package com.bluetech.bluecase.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Properties specific to Blue Case.
+ * Properties specific to Bluecase.
  * <p>
  * Properties are configured in the {@code application.yml} file.
  * See {@link tech.jhipster.config.JHipsterProperties} for a good example.

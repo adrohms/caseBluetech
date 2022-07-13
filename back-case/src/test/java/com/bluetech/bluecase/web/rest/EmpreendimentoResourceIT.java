@@ -35,9 +35,6 @@ class EmpreendimentoResourceIT {
     private static final String DEFAULT_ENDERECO = "AAAAAAAAAA";
     private static final String UPDATED_ENDERECO = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_QUANTIDADE_DE_VOTOS = 1;
-    private static final Integer UPDATED_QUANTIDADE_DE_VOTOS = 2;
-
     private static final String ENTITY_API_URL = "/api/empreendimentos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -62,10 +59,7 @@ class EmpreendimentoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Empreendimento createEntity(EntityManager em) {
-        Empreendimento empreendimento = new Empreendimento()
-            .nome(DEFAULT_NOME)
-            .endereco(DEFAULT_ENDERECO)
-            .quantidadeDeVotos(DEFAULT_QUANTIDADE_DE_VOTOS);
+        Empreendimento empreendimento = new Empreendimento().nome(DEFAULT_NOME).endereco(DEFAULT_ENDERECO);
         return empreendimento;
     }
 
@@ -76,10 +70,7 @@ class EmpreendimentoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Empreendimento createUpdatedEntity(EntityManager em) {
-        Empreendimento empreendimento = new Empreendimento()
-            .nome(UPDATED_NOME)
-            .endereco(UPDATED_ENDERECO)
-            .quantidadeDeVotos(UPDATED_QUANTIDADE_DE_VOTOS);
+        Empreendimento empreendimento = new Empreendimento().nome(UPDATED_NOME).endereco(UPDATED_ENDERECO);
         return empreendimento;
     }
 
@@ -105,7 +96,6 @@ class EmpreendimentoResourceIT {
         Empreendimento testEmpreendimento = empreendimentoList.get(empreendimentoList.size() - 1);
         assertThat(testEmpreendimento.getNome()).isEqualTo(DEFAULT_NOME);
         assertThat(testEmpreendimento.getEndereco()).isEqualTo(DEFAULT_ENDERECO);
-        assertThat(testEmpreendimento.getQuantidadeDeVotos()).isEqualTo(DEFAULT_QUANTIDADE_DE_VOTOS);
     }
 
     @Test
@@ -141,8 +131,7 @@ class EmpreendimentoResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(empreendimento.getId().intValue())))
             .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME)))
-            .andExpect(jsonPath("$.[*].endereco").value(hasItem(DEFAULT_ENDERECO)))
-            .andExpect(jsonPath("$.[*].quantidadeDeVotos").value(hasItem(DEFAULT_QUANTIDADE_DE_VOTOS)));
+            .andExpect(jsonPath("$.[*].endereco").value(hasItem(DEFAULT_ENDERECO)));
     }
 
     @Test
@@ -158,8 +147,7 @@ class EmpreendimentoResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(empreendimento.getId().intValue()))
             .andExpect(jsonPath("$.nome").value(DEFAULT_NOME))
-            .andExpect(jsonPath("$.endereco").value(DEFAULT_ENDERECO))
-            .andExpect(jsonPath("$.quantidadeDeVotos").value(DEFAULT_QUANTIDADE_DE_VOTOS));
+            .andExpect(jsonPath("$.endereco").value(DEFAULT_ENDERECO));
     }
 
     @Test
@@ -181,7 +169,7 @@ class EmpreendimentoResourceIT {
         Empreendimento updatedEmpreendimento = empreendimentoRepository.findById(empreendimento.getId()).get();
         // Disconnect from session so that the updates on updatedEmpreendimento are not directly saved in db
         em.detach(updatedEmpreendimento);
-        updatedEmpreendimento.nome(UPDATED_NOME).endereco(UPDATED_ENDERECO).quantidadeDeVotos(UPDATED_QUANTIDADE_DE_VOTOS);
+        updatedEmpreendimento.nome(UPDATED_NOME).endereco(UPDATED_ENDERECO);
 
         restEmpreendimentoMockMvc
             .perform(
@@ -197,7 +185,6 @@ class EmpreendimentoResourceIT {
         Empreendimento testEmpreendimento = empreendimentoList.get(empreendimentoList.size() - 1);
         assertThat(testEmpreendimento.getNome()).isEqualTo(UPDATED_NOME);
         assertThat(testEmpreendimento.getEndereco()).isEqualTo(UPDATED_ENDERECO);
-        assertThat(testEmpreendimento.getQuantidadeDeVotos()).isEqualTo(UPDATED_QUANTIDADE_DE_VOTOS);
     }
 
     @Test
@@ -268,7 +255,7 @@ class EmpreendimentoResourceIT {
         Empreendimento partialUpdatedEmpreendimento = new Empreendimento();
         partialUpdatedEmpreendimento.setId(empreendimento.getId());
 
-        partialUpdatedEmpreendimento.nome(UPDATED_NOME).quantidadeDeVotos(UPDATED_QUANTIDADE_DE_VOTOS);
+        partialUpdatedEmpreendimento.nome(UPDATED_NOME);
 
         restEmpreendimentoMockMvc
             .perform(
@@ -284,7 +271,6 @@ class EmpreendimentoResourceIT {
         Empreendimento testEmpreendimento = empreendimentoList.get(empreendimentoList.size() - 1);
         assertThat(testEmpreendimento.getNome()).isEqualTo(UPDATED_NOME);
         assertThat(testEmpreendimento.getEndereco()).isEqualTo(DEFAULT_ENDERECO);
-        assertThat(testEmpreendimento.getQuantidadeDeVotos()).isEqualTo(UPDATED_QUANTIDADE_DE_VOTOS);
     }
 
     @Test
@@ -299,7 +285,7 @@ class EmpreendimentoResourceIT {
         Empreendimento partialUpdatedEmpreendimento = new Empreendimento();
         partialUpdatedEmpreendimento.setId(empreendimento.getId());
 
-        partialUpdatedEmpreendimento.nome(UPDATED_NOME).endereco(UPDATED_ENDERECO).quantidadeDeVotos(UPDATED_QUANTIDADE_DE_VOTOS);
+        partialUpdatedEmpreendimento.nome(UPDATED_NOME).endereco(UPDATED_ENDERECO);
 
         restEmpreendimentoMockMvc
             .perform(
@@ -315,7 +301,6 @@ class EmpreendimentoResourceIT {
         Empreendimento testEmpreendimento = empreendimentoList.get(empreendimentoList.size() - 1);
         assertThat(testEmpreendimento.getNome()).isEqualTo(UPDATED_NOME);
         assertThat(testEmpreendimento.getEndereco()).isEqualTo(UPDATED_ENDERECO);
-        assertThat(testEmpreendimento.getQuantidadeDeVotos()).isEqualTo(UPDATED_QUANTIDADE_DE_VOTOS);
     }
 
     @Test

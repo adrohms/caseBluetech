@@ -129,9 +129,6 @@ public class EmpreendimentoResource {
                 if (empreendimento.getEndereco() != null) {
                     existingEmpreendimento.setEndereco(empreendimento.getEndereco());
                 }
-                if (empreendimento.getQuantidadeDeVotos() != null) {
-                    existingEmpreendimento.setQuantidadeDeVotos(empreendimento.getQuantidadeDeVotos());
-                }
 
                 return existingEmpreendimento;
             })

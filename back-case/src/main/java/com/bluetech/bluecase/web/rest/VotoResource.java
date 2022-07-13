@@ -132,13 +132,12 @@ public class VotoResource {
     /**
      * {@code GET  /votos} : get all the votos.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of votos in body.
      */
     @GetMapping("/votos")
-    public List<Voto> getAllVotos(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public List<Voto> getAllVotos() {
         log.debug("REST request to get all Votos");
-        return votoRepository.findAllWithEagerRelationships();
+        return votoRepository.findAll();
     }
 
     /**
@@ -150,7 +149,7 @@ public class VotoResource {
     @GetMapping("/votos/{id}")
     public ResponseEntity<Voto> getVoto(@PathVariable Long id) {
         log.debug("REST request to get Voto : {}", id);
-        Optional<Voto> voto = votoRepository.findOneWithEagerRelationships(id);
+        Optional<Voto> voto = votoRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(voto);
     }
 

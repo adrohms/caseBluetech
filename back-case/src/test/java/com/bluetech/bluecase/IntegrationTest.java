@@ -1,6 +1,6 @@
 package com.bluetech.bluecase;
 
-import com.bluetech.bluecase.BlueCaseApp;
+import com.bluetech.bluecase.BluecaseApp;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -12,6 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@SpringBootTest(classes = BlueCaseApp.class)
+@SpringBootTest(classes = BluecaseApp.class)
 public @interface IntegrationTest {
 }

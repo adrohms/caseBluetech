@@ -1,0 +1,16 @@
+entity Empreendimento {
+	nome String
+    endereco String
+}
+
+entity Voto {
+
+}
+
+relationship ManyToOne {
+	Voto to Empreendimento
+}
+
+relationship OneToOne {
+	Voto to User
+}

@@ -2,7 +2,7 @@
   "generator-jhipster": {
     "applicationType": "monolith",
     "authenticationType": "jwt",
-    "baseName": "blueCase",
+    "baseName": "bluecase",
     "blueprints": [],
     "buildTool": "maven",
     "cacheProvider": "ehcache",
@@ -10,7 +10,7 @@
     "clientPackageManager": "npm",
     "clientTheme": "flatly",
     "clientThemeVariant": "primary",
-    "creationTimestamp": 1657372438819,
+    "creationTimestamp": 1657664808457,
     "databaseType": "sql",
     "devDatabaseType": "sql",
     "devServerPort": 4200,
@@ -18,10 +18,12 @@
     "enableGradleEnterprise": false,
     "enableHibernateCache": true,
     "enableTranslation": false,
+    "entities": ["Empreendimento", "Voto"],
     "entitySuffix": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.8.1",
     "languages": ["en", "fr"],
+    "lastLiquibaseTimestamp": 1657664965000,
     "monorepository": true,
     "nativeLanguage": "en",
     "otherModules": [],
@@ -39,6 +41,6 @@
     "skipUserManagement": false,
     "testFrameworks": [],
     "websocket": false,
-    "withAdminUi": true
+    "withAdminUi": false
   }
 }

@@ -1,8 +1,8 @@
 {
-  "name": "blue-case",
+  "name": "bluecase",
   "version": "0.0.0",
   "private": true,
-  "description": "Description for blueCase",
+  "description": "Description for bluecase",
   "license": "UNLICENSED",
   "scripts": {
     "app:start": "./mvnw",

@@ -1,5 +1,6 @@
 package com.bluetech.bluecase.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
@@ -23,10 +24,11 @@ public class Voto implements Serializable {
 
     @OneToOne
     @JoinColumn(unique = true)
-    private User firstName;
+    private User user;
 
     @ManyToOne
-    private Empreendimento nome;
+    @JsonIgnoreProperties(value = { "votos" }, allowSetters = true)
+    private Empreendimento empreendimento;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -43,29 +45,29 @@ public class Voto implements Serializable {
         this.id = id;
     }
 
-    public User getFirstName() {
-        return this.firstName;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setFirstName(User user) {
-        this.firstName = user;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Voto firstName(User user) {
-        this.setFirstName(user);
+    public Voto user(User user) {
+        this.setUser(user);
         return this;
     }
 
-    public Empreendimento getNome() {
-        return this.nome;
+    public Empreendimento getEmpreendimento() {
+        return this.empreendimento;
     }
 
-    public void setNome(Empreendimento empreendimento) {
-        this.nome = empreendimento;
+    public void setEmpreendimento(Empreendimento empreendimento) {
+        this.empreendimento = empreendimento;
     }
 
-    public Voto nome(Empreendimento empreendimento) {
-        this.setNome(empreendimento);
+    public Voto empreendimento(Empreendimento empreendimento) {
+        this.setEmpreendimento(empreendimento);
         return this;
     }
 

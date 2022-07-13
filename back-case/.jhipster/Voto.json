@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220712020239",
+  "changelogDate": "20220712223014",
   "dto": "no",
   "embedded": false,
   "entityTableName": "voto",
@@ -15,14 +15,13 @@
       "otherEntityName": "user",
       "otherEntityRelationshipName": "voto",
       "ownerSide": true,
-      "relationshipName": "firstName",
+      "relationshipName": "user",
       "relationshipType": "one-to-one"
     },
     {
-      "otherEntityField": "nomeEmpreendimento",
       "otherEntityName": "empreendimento",
       "otherEntityRelationshipName": "voto",
-      "relationshipName": "nome",
+      "relationshipName": "empreendimento",
       "relationshipType": "many-to-one"
     }
   ],

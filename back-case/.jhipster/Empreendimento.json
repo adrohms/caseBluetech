@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220712020238",
+  "changelogDate": "20220712223013",
   "dto": "no",
   "embedded": false,
   "entityTableName": "empreendimento",
@@ -12,10 +12,6 @@
     {
       "fieldName": "endereco",
       "fieldType": "String"
-    },
-    {
-      "fieldName": "quantidadeDeVotos",
-      "fieldType": "Integer"
     }
   ],
   "fluentMethods": true,
@@ -23,6 +19,13 @@
   "name": "Empreendimento",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "voto",
+      "otherEntityRelationshipName": "empreendimento",
+      "relationshipName": "voto",
+      "relationshipType": "one-to-many"
+    }
+  ],
   "service": "no"
 }

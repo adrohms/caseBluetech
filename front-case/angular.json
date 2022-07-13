@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "blue-case": {
+    "bluecase": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -76,15 +76,15 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "blue-case:build:development",
+            "browserTarget": "bluecase:build:development",
             "port": 4200
           },
           "configurations": {
             "production": {
-              "browserTarget": "blue-case:build:production"
+              "browserTarget": "bluecase:build:production"
             },
             "development": {
-              "browserTarget": "blue-case:build:development"
+              "browserTarget": "bluecase:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -98,7 +98,7 @@
       }
     }
   },
-  "defaultProject": "blue-case",
+  "defaultProject": "bluecase",
   "cli": {
     "cache": {
       "enabled": true,

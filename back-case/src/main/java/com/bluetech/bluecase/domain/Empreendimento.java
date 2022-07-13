@@ -1,6 +1,9 @@
 package com.bluetech.bluecase.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -27,8 +30,10 @@ public class Empreendimento implements Serializable {
     @Column(name = "endereco")
     private String endereco;
 
-    @Column(name = "quantidade_de_votos")
-    private Integer quantidadeDeVotos;
+    @OneToMany(mappedBy = "empreendimento")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "user", "empreendimento" }, allowSetters = true)
+    private Set<Voto> votos = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -71,17 +76,35 @@ public class Empreendimento implements Serializable {
         this.endereco = endereco;
     }
 
-    public Integer getQuantidadeDeVotos() {
-        return this.quantidadeDeVotos;
+    public Set<Voto> getVotos() {
+        return this.votos;
     }
 
-    public Empreendimento quantidadeDeVotos(Integer quantidadeDeVotos) {
-        this.setQuantidadeDeVotos(quantidadeDeVotos);
+    public void setVotos(Set<Voto> votos) {
+        if (this.votos != null) {
+            this.votos.forEach(i -> i.setEmpreendimento(null));
+        }
+        if (votos != null) {
+            votos.forEach(i -> i.setEmpreendimento(this));
+        }
+        this.votos = votos;
+    }
+
+    public Empreendimento votos(Set<Voto> votos) {
+        this.setVotos(votos);
         return this;
     }
 
-    public void setQuantidadeDeVotos(Integer quantidadeDeVotos) {
-        this.quantidadeDeVotos = quantidadeDeVotos;
+    public Empreendimento addVoto(Voto voto) {
+        this.votos.add(voto);
+        voto.setEmpreendimento(this);
+        return this;
+    }
+
+    public Empreendimento removeVoto(Voto voto) {
+        this.votos.remove(voto);
+        voto.setEmpreendimento(null);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -110,7 +133,6 @@ public class Empreendimento implements Serializable {
             "id=" + getId() +
             ", nome='" + getNome() + "'" +
             ", endereco='" + getEndereco() + "'" +
-            ", quantidadeDeVotos=" + getQuantidadeDeVotos() +
             "}";
     }
 }

@@ -1,0 +1,31 @@
+{
+  "applications": "*",
+  "changelogDate": "20220712222924",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "empreendimento",
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "endereco",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Empreendimento",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "voto",
+      "otherEntityRelationshipName": "empreendimento",
+      "relationshipName": "voto",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

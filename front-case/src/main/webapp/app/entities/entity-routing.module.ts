@@ -5,10 +5,11 @@ import { RouterModule } from '@angular/router';
   imports: [
     RouterModule.forChild([
       {
-        path:'login',
-        data: { pageTitle: 'Login'},
-        loadChildren: () => import('../login/login.module').then(m => m.LoginModule),
+        path: 'empreendimento',
+        data: { pageTitle: 'Empreendimentos' },
+        loadChildren: () => import('./empreendimento/empreendimento.module').then(m => m.EmpreendimentoModule),
       },
+      /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],
 })

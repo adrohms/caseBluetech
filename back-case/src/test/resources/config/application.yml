@@ -14,11 +14,8 @@
 # ===================================================================
 
 spring:
-  profiles:
-    # Uncomment the following line to enable tests against production database type rather than H2, using Testcontainers
-    #active: testcontainers
   application:
-    name: blueCase
+    name: bluecase
 
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
@@ -61,13 +58,13 @@ spring:
     basename: i18n/messages
   task:
     execution:
-      thread-name-prefix: blue-case-task-
+      thread-name-prefix: bluecase-task-
       pool:
         core-size: 1
         max-size: 50
         queue-capacity: 10000
     scheduling:
-      thread-name-prefix: blue-case-scheduling-
+      thread-name-prefix: bluecase-scheduling-
       pool:
         size: 20
   thymeleaf:
@@ -84,7 +81,7 @@ server:
 # ===================================================================
 jhipster:
   clientApp:
-    name: 'blueCaseApp'
+    name: 'bluecaseApp'
   logging:
     # To test json console appender
     use-json-format: false
@@ -100,7 +97,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-        base64-secret: OTM5MzNhOThmNzE2ZWM5YTI0YjQyODE3NDI5NWFkMTk2ZmUwMmMxYjk1YzYxNDQ0YWMwZjBjYTQxOWZmODdlOWM1MDUxYjc5NDdkYjRlYWMxZDQwNDJiYTM4ODMxZTBmZmYwZDcyOWRlMThkZjk4MmNkNDc4OTBiZmU4NzA4Y2M=
+        base64-secret: YTQyYTNiMTc5YmIxYWJlOWZkNjBiNjRhOTQyYjlkZTMxMjE1N2JlZWUwZDRlMDJmZTQ2MGE2MGJiZTE0NGI1N2MzNzRkZDBmYTQ1ZWU4YWVlYzRjNjc0NDJlNzJlNzdhMzBmZTI5ZmE4OGY5OWQ2ZDQ0NDVmZjI0YzZkZDNjOGY=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
 # ===================================================================

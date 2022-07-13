@@ -4,9 +4,9 @@ services:
   bluecase-postgresql:
     image: postgres:14.2
     # volumes:
-    #   - ~/volumes/jhipster/blueCase/postgresql/:/var/lib/postgresql/data/
+    #   - ~/volumes/jhipster/bluecase/postgresql/:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=blueCase
+      - POSTGRES_USER=bluecase
       - POSTGRES_PASSWORD=
       - POSTGRES_HOST_AUTH_METHOD=trust
     # If you want to expose these ports outside your dev PC,

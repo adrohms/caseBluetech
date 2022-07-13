@@ -1,0 +1,29 @@
+{
+  "applications": "*",
+  "changelogDate": "20220712222925",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "voto",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Voto",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "voto",
+      "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "empreendimento",
+      "otherEntityRelationshipName": "voto",
+      "relationshipName": "empreendimento",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}
