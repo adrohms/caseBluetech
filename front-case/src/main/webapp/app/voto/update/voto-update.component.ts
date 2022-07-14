@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
@@ -11,6 +11,9 @@ import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
 import { IEmpreendimento } from 'app/entities/empreendimento/empreendimento.model';
 import { EmpreendimentoService } from 'app/entities/empreendimento/service/empreendimento.service';
+import { UserManagementService } from 'app/admin/user-management/service/user-management.service'
+import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/auth/account.model';
 
 @Component({
   selector: 'jhi-voto-update',
@@ -21,19 +24,30 @@ export class VotoUpdateComponent implements OnInit {
 
   usersSharedCollection: IUser[] = [];
   empreendimentosSharedCollection: IEmpreendimento[] = [];
+  account!: Account;
+  accountId: number | null = null;
 
   editForm = this.fb.group({
-    id: [],
+    id: [this.accountId],
     user: [],
     empreendimento: [],
+  });
+
+  settingsForm = this.fb.group({
+    id: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+    firstName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+    lastName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+    email: [undefined, [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
   });
 
   constructor(
     protected votoService: VotoService,
     protected userService: UserService,
+    protected userManagementService: UserManagementService,
     protected empreendimentoService: EmpreendimentoService,
     protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
+    protected fb: FormBuilder,
+    private accountService: AccountService
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +55,19 @@ export class VotoUpdateComponent implements OnInit {
       this.updateForm(voto);
 
       this.loadRelationshipsOptions();
+    });
+
+    this.accountService.identity().subscribe(account => {
+      if (account) {
+        this.settingsForm.patchValue({
+          firstName: account.firstName,
+          lastName: account.lastName,
+          email: account.email,
+        });
+
+        this.account = account;
+        this.accountId = account.id;
+      }
     });
   }
 

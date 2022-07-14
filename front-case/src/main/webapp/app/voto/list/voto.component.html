@@ -1,44 +1,29 @@
+
 <div>
-  <table class="table table-striped" aria-describedby="page-heading">
-    <thead>
-      <tr>
-        <th scope="col"><span>Nome</span></th>
-        <th scope="col"><span>Endereco</span></th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let empreendimento of empreendimentos; trackBy: trackIdEmpreendimento" data-cy="entityTable">
-<!--         <td>
-          <a [routerLink]="['/empreendimento', empreendimento.id, 'view']">{{ empreendimento.id }}</a>
-        </td> -->
-        <td>{{ empreendimento.nome }}</td>
-        <td>{{ empreendimento.endereco }}</td>
-        <td class="text-end">
 
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
-<div class="list-group" *ngFor="let empreendimento of empreendimentos; trackBy: trackIdEmpreendimento">
-  <li class="list-group-item list-group-item-action flex-column align-items-start active">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">{{ empreendimento.nome }}</h5>
+  <!-- <form name="form" role="form" (ngSubmit)="save()" [formGroup]="settingsForm" *ngIf="account" novalidate> -->
+    <div class="list-group" *ngFor="let empreendimento of empreendimentos; trackBy: trackIdEmpreendimento">
+      <div class="row">
+        <div class="row col-lg-10">
+          <div class="card border-primary col-lg-6">
+            <h4 >{{ empreendimento.nome }}</h4>
+            <p >{{ empreendimento.endereco }}</p>
+          </div>
+          <button type="button" class="btn btn-primary btn-lg col-1">Votar</button>
+          <div class="col-lg-6">
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <br />
     </div>
-    <p class="mb-1"> {{ empreendimento.endereco }} </p>
-  </li>
-
-</div>
-
-<div class="progress">
-  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-</div>
+  <!-- </form> -->
 
 
-<!-- --------------------------------------------------------------------------------- -->
-<div>
   <h2 id="page-heading" data-cy="VotoHeading">
     <span>Votos</span>
 

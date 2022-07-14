@@ -11,7 +11,7 @@ import { VotoDeleteDialogComponent } from '../delete/voto-delete-dialog.componen
 
 @Component({
   selector: 'jhi-voto',
-  templateUrl: './voto.component.html',
+  templateUrl: './voto.component.html'
 })
 export class VotoComponent implements OnInit {
   votos?: IVoto[];
