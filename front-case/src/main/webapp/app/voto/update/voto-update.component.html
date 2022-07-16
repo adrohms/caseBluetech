@@ -1,5 +1,41 @@
+
+  <form name="voteForm" role="form" (ngSubmit)="save()" [formGroup]="voteForm" novalidate>  <!-- *ngIf="account"  -->
+
+    <div class="container-fluid" *ngFor="let empreendimento of empreendimentosSharedCollection; trackBy: trackEmpreendimentoById">
+      <div class="row">
+
+        <div class="row col-12 ">
+          <div class="card border-primary col-9">
+            <h4> {{ empreendimento.nome }} </h4>
+            <p > {{ empreendimento.endereco }}</p>
+          </div>
+          <div class="col-3">
+            <button
+              (click)="selectedEmpreendimento(empreendimento)"
+              type="submit"
+              id="save-entity"
+              data-cy="entityCreateSaveButton"
+              [disabled]="voteForm.invalid || isSaving"
+              class="btn btn-primary btn-lg h-100">
+              Votar
+            </button>
+          </div>
+        </div>
+
+        <div class="col-9" style="padding-left: 0px; padding-right: 18px">
+          <div class="progress" >
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">40%</div>
+          </div>
+        </div>
+
+      </div>
+
+      <br />
+    </div>
+</form>
+
 <!-- ------------------------------------------------------------- | ------------------------------------------------------------- -->
-<div class="d-flex justify-content-center">
+<!-- <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-voto-heading" data-cy="VotoCreateUpdateHeading">Create or edit a Voto</h2>
@@ -67,3 +103,4 @@
     </form>
   </div>
 </div>
+ -->

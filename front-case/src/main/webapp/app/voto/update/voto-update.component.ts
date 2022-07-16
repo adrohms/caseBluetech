@@ -7,7 +7,7 @@ import { finalize, map } from 'rxjs/operators';
 
 import { IVoto, Voto } from '../voto.model';
 import { VotoService } from '../service/voto.service';
-import { IUser } from 'app/entities/user/user.model';
+import { IUser, User } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
 import { IEmpreendimento } from 'app/entities/empreendimento/empreendimento.model';
 import { EmpreendimentoService } from 'app/entities/empreendimento/service/empreendimento.service';
@@ -24,20 +24,22 @@ export class VotoUpdateComponent implements OnInit {
 
   usersSharedCollection: IUser[] = [];
   empreendimentosSharedCollection: IEmpreendimento[] = [];
+  empreendimentoSelected!: IEmpreendimento;
   account!: Account;
-  accountId: number | null = null;
+  currentUser!: IUser;
 
-  editForm = this.fb.group({
-    id: [this.accountId],
+  voteForm = this.fb.group({
+    id: [undefined],
     user: [],
     empreendimento: [],
   });
 
   settingsForm = this.fb.group({
-    id: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+    id: [undefined, [Validators.required]],
     firstName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     lastName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     email: [undefined, [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
+    login: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]]
   });
 
   constructor(
@@ -63,12 +65,13 @@ export class VotoUpdateComponent implements OnInit {
           firstName: account.firstName,
           lastName: account.lastName,
           email: account.email,
+          id: account.id,
+          login: account.login
         });
-
-        this.account = account;
-        this.accountId = account.id;
       }
     });
+
+    this.currentUser = new User(this.settingsForm.get(['id'])!.value, this.settingsForm.get(['login'])!.value)
   }
 
   previousState(): void {
@@ -93,6 +96,10 @@ export class VotoUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  selectedEmpreendimento(empreendimento: IEmpreendimento): void{
+    this.empreendimentoSelected = empreendimento;
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IVoto>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),
@@ -113,7 +120,7 @@ export class VotoUpdateComponent implements OnInit {
   }
 
   protected updateForm(voto: IVoto): void {
-    this.editForm.patchValue({
+    this.voteForm.patchValue({
       id: voto.id,
       user: voto.user,
       empreendimento: voto.empreendimento,
@@ -130,7 +137,7 @@ export class VotoUpdateComponent implements OnInit {
     this.userService
       .query()
       .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
-      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('user')!.value)))
+      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.voteForm.get('user')!.value)))
       .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
 
     this.empreendimentoService
@@ -138,7 +145,7 @@ export class VotoUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<IEmpreendimento[]>) => res.body ?? []))
       .pipe(
         map((empreendimentos: IEmpreendimento[]) =>
-          this.empreendimentoService.addEmpreendimentoToCollectionIfMissing(empreendimentos, this.editForm.get('empreendimento')!.value)
+          this.empreendimentoService.addEmpreendimentoToCollectionIfMissing(empreendimentos, this.voteForm.get('empreendimento')!.value)
         )
       )
       .subscribe((empreendimentos: IEmpreendimento[]) => (this.empreendimentosSharedCollection = empreendimentos));
@@ -147,9 +154,10 @@ export class VotoUpdateComponent implements OnInit {
   protected createFromForm(): IVoto {
     return {
       ...new Voto(),
-      id: this.editForm.get(['id'])!.value,
-      user: this.editForm.get(['user'])!.value,
-      empreendimento: this.editForm.get(['empreendimento'])!.value,
+      id: this.voteForm.get(['id'])!.value,
+      user: this.currentUser,
+      empreendimento: this.empreendimentoSelected,
     };
   }
+
 }
