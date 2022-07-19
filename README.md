@@ -1,3 +1,62 @@
+# Blue Case
+
+Para rodar a aplicação é necessário primeiro iniciar um container com o Postgres:
+
+```
+docker-compose -f ./src/main/docker/postgresql.yml up
+```
+
+Esse caminho é referente ao back-case!
+*Observação importante*: a porta está mapeada para a 5432, caso exista outra aplicação rodando nessa porta o container não iniciará.
+
+Para rodar o back-end é necessário em back-case executar o comando:
+
+```
+./mvnw (ou só mvnw caso seja Windows)
+```
+
+Para rodar o front-end basta executar os comandos:
+```
+npm install
+npm start
+```
+
+Para o login na aplicação:
+-   Usuário padrão:
+```
+    Login: user
+    Password: user
+```
+
+- Usuário administrativo:
+```
+  Login: admin
+  Password: admin
+```
+
+# URL para recuperar o status da votação:
+
+Primeiro fazer a autenticação e pegar o Baerer token:
+```
+Método POST:
+    http://localhost:9000/api/authenticate
+Body:
+    {
+        "username":"user",
+        "password":"user",
+        "remberMe":false
+    }
+```
+
+E então é possível recuperar os votos por:
+```
+Método GET:
+    http://localhost:9000/api/votos
+Headers: 
+    Authorization: Baerer (token recebido do POST anterior)
+```
+
+Mais informações (geradas pelo JHipster) são fornecidas à baixo:
 # caseBluetech
 
 This application was generated using JHipster 7.8.1, you can find documentation and help at [https://www.jhipster.tech](https://www.jhipster.tech).
