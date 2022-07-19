@@ -33,4 +33,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
+  vote(): void {
+    this.router.navigate(['/voto']);
+  }
 }

@@ -2,8 +2,7 @@
   <div class="container-fluid">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
       <span class="logo-img"></span>
-      <span class="navbar-title">Bluecase</span>
-      <span class="navbar-version">{{ version }}</span>
+      <span class="navbar-title">Blue Case</span>
     </a>
     <a
       class="navbar-toggler d-lg-none"
@@ -29,46 +28,28 @@
         </li>
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
         <li
-          *jhiHasAnyAuthority="'ROLE_ADMIN'"
-          ngbDropdown
-          class="nav-item dropdown pointer"
-          display="dynamic"
+          [hidden]="account === null"
+          class="nav-item"
           routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
+          [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/voto" >
             <span>
-              <fa-icon icon="th-list"></fa-icon>
-              <span>Entities</span>
+              <fa-icon icon="check"></fa-icon>
+              <span>Votar</span>
             </span>
           </a>
-          <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="empreendimento"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span>Empreendimento</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="voto"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span>Voto</span>
-              </a>
-            </li>
-            <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-          </ul>
+        </li>
+        <li
+          *jhiHasAnyAuthority="'ROLE_ADMIN'"
+          class="nav-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="empreendimento" >
+            <span>
+              <fa-icon icon="th-list"></fa-icon>
+              <span>Empreendimentos</span>
+            </span>
+          </a>
         </li>
         <li
           *jhiHasAnyAuthority="'ROLE_ADMIN'"

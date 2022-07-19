@@ -14,6 +14,8 @@ import { EmpreendimentoService } from 'app/entities/empreendimento/service/empre
 import { UserManagementService } from 'app/admin/user-management/service/user-management.service'
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AlertService, Alert } from 'app/core/util/alert.service';
 
 @Component({
   selector: 'jhi-voto-update',
@@ -21,12 +23,12 @@ import { Account } from 'app/core/auth/account.model';
 })
 export class VotoUpdateComponent implements OnInit {
   isSaving = false;
-
   usersSharedCollection: IUser[] = [];
   empreendimentosSharedCollection: IEmpreendimento[] = [];
   empreendimentoSelected!: IEmpreendimento;
   account!: Account;
   currentUser!: IUser;
+  alerts: Alert[] = [];
 
   voteForm = this.fb.group({
     id: [undefined],
@@ -49,10 +51,14 @@ export class VotoUpdateComponent implements OnInit {
     protected empreendimentoService: EmpreendimentoService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder,
-    private accountService: AccountService
+    protected accountService: AccountService,
+    protected modalService: NgbModal,
+    protected alertService: AlertService
   ) {}
 
   ngOnInit(): void {
+    this.alerts = this.alertService.get();
+
     this.activatedRoute.data.subscribe(({ voto }) => {
       this.updateForm(voto);
 
@@ -74,8 +80,8 @@ export class VotoUpdateComponent implements OnInit {
     this.currentUser = new User(this.settingsForm.get(['id'])!.value, this.settingsForm.get(['login'])!.value)
   }
 
-  previousState(): void {
-    window.history.back();
+  reloadState(): void {
+    window.location.reload();
   }
 
   save(): void {
@@ -100,6 +106,9 @@ export class VotoUpdateComponent implements OnInit {
     this.empreendimentoSelected = empreendimento;
   }
 
+
+
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IVoto>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),
@@ -108,11 +117,27 @@ export class VotoUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
-    this.previousState();
+    setTimeout(() => this.reloadState(), 5000);
+
+    this.alertService.addAlert(
+      {
+          type: 'success',
+          message: 'Seu voto foi contabilizado com sucesso!',
+          timeout: 5000,
+          toast: false
+      });
+
   }
 
   protected onSaveError(): void {
-    // Api for inheritance.
+    this.alertService.addAlert(
+      {
+          type: 'warning',
+          message: 'Não é possível votar novamente!',
+          timeout: 5000,
+          toast: false
+      }
+    );
   }
 
   protected onSaveFinalize(): void {
